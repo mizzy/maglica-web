@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 app = Blueprint('root', __name__)
 
 @app.route('/')
 def index():
-    return render_template('root/index.html')
+    return redirect('/vm')
