@@ -5,15 +5,9 @@
 {% block content %}
 <h1>Virtual Machines</h1>
 
-<script>
-$(document).ready(function() { 
-    $("#vm").tablesorter(); 
-}); 
-
-$(document).ready(function() {
-	$('#vm').tableFilter();
-});
-</script>
+<form id="filter-form">
+  <input name="filter" id="filter" value="" type="text">
+</form>
 
 <table id="vm" class="zebra-striped">
   <thead>
@@ -29,17 +23,17 @@ $(document).ready(function() {
     <tr>
       <td>{{ vm.name }}</td>
       <td>{{ vm.host }}</td>
-      <td>
+      <td style="text-align: center">
         {% if vm.state == "running" %}
         <span class="label success">{{ vm.state }}</span>
         {% else %}
         <span class="label">{{ vm.state }}</span>
         {% endif %}
       </td>
-      <td>
+      <td style="text-align: center;">
         {% if vm.state == "running" %}
         <!-- <span class="btn">Stop</span> -->
-        <a class="btn info" href="/vm/console/{{ vm.name }}">Console</a>
+        <a href="/vm/console/{{ vm.name }}"><img src="/static/img/terminal_icon_16.png" /></a>
         {% else %}
         <!--
         <span class="btn success">Start</span>
@@ -51,6 +45,23 @@ $(document).ready(function() {
     {% endfor %}
   </tbody>
 </table>
+
+<script>
+$(document).ready(function() { 
+    $("#vm").tablesorter(); 
+}); 
+
+$(function() { 
+  var t = $('#vm');
+  $("#filter").keyup(function() {
+    $.uiTableFilter( t, this.value);
+  })
+});
+
+$(function() {
+  $("#filter").focus();
+})
+</script>
 
 {% endblock %}
 
