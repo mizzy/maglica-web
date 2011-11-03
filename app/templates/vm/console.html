@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}VM Console of {{ info.name }}{% endblock %}
+
+{% block content %}
+<h1>VM Console of {{ info.name }}</h1>
+
+<applet code="VncViewer.class" archive="/static/VncViewer.jar" width="1024" height="768">
+  <param name="HOST" value="{{ info.host }}">
+  <param name="PORT" value="{{ info.vncport }}">
+</applet>
+
+{% endblock %}
